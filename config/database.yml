@@ -1,0 +1,10 @@
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+
+#config for heroku
+production:
+  url: <%= ENV['DATABASE_URL'] %>
+  encoding: utf8
+  pool: 5
