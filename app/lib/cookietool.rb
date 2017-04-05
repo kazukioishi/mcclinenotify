@@ -4,6 +4,7 @@ class CookieTool
     jar.each do |cookie|
       rettext += cookie.to_s + '; '
     end
+    rettext.chop!
     return rettext
   end
 end
