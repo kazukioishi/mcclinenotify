@@ -231,6 +231,9 @@ WhileUntilModifier:
 WordArray:
   Enabled: false
 
+BracesAroundHashParameters:
+  EnforcedStyle: braces
+
 # Lint
 
 AmbiguousOperator:
