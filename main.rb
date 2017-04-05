@@ -9,5 +9,9 @@ require './init/dbinit'
 Dir.glob('./app/models/*.rb').each do |file|
   require file
 end
+# load all libs
+Dir.glob('./app/lib/*.rb').each do |file|
+  require file
+end
 # run app
 require './app/mcclinenotify'
