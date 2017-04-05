@@ -15,5 +15,5 @@ end
 Dir.glob('./app/lib/*.rb').each do |file|
   require file
 end
-# run app
+# run app └(。`･ ω ･´。)┘ｶﾞﾝﾊﾞﾙﾋﾞｨ
 require './app/mcclinenotify'

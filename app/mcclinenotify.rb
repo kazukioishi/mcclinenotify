@@ -19,5 +19,29 @@ res = conn.post('https://circleapp.jp/mailinglist/listJSON/2738/p/0',
                 { 'Content-Type': 'application/json; charset=UTF-8',
                   'User-Agent': agent.user_agent,
                   'Cookie': CookieTool::gethash(cookie) })
-mljson = JSON.parse(res.body)
+mljson = JSON.parse(res.body, { :symbolize_names => true })
 Rails.logger.debug mljson
+mljson.each do |ml|
+  if Topic.find_by({ recipient_id: ml[:recipientId] }).nil?
+    # if there is no recipient in DB, insert it!
+    topic = Topic.new
+    topic.attributes = {
+        creation_date: DateTime.parse(ml[:createDateText]),
+        recipient_id: ml[:recipientId],
+        recipients: ml[:entry][:recipients],
+        subject: ml[:entry][:subject],
+        content: ml[:entry][:content],
+        first_name: ml[:entry][:createUser][:firstName],
+        last_name: ml[:entry][:createUser][:lastName],
+        deadline_text: ml[:deadlineText],
+        sender_grade: ml[:entry][:createUser][:educationStateId],
+        send_ok: ENV['first_time'] == 'TRUE' ? true : false
+    }
+    topic.save
+  end
+end
+# find not sent item
+Topic.where({ send_ok: false }).order(creation_date: :asc).each do |item|
+  Rails.logger.debug item.subject
+  # send to LINE ﾖｰｿﾛｰ(*> ᴗ •*)ゞ
+end
