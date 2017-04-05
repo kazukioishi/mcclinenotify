@@ -7,7 +7,7 @@ lpageform.email = ENV['circleapp_mail']
 lpageform.password = ENV['circleapp_password']
 agent.submit(lpageform)
 cookie = agent.cookie_jar.cookies('https://circleapp.jp/top')
-p CookieTool::gethash(cookie)
+Rails.logger.debug CookieTool::gethash(cookie)
 # get json
 conn = Faraday.new do |faraday|
   faraday.request :url_encoded # form-encode POST params
@@ -18,6 +18,6 @@ res = conn.post('https://circleapp.jp/mailinglist/listJSON/2738/p/0',
                 JSON.generate({ mode: '0', keyword: '' }),
                 { 'Content-Type': 'application/json; charset=UTF-8',
                   'User-Agent': agent.user_agent,
-                  'Cookie': CookieTool::gethash(cookie)
-                })
+                  'Cookie': CookieTool::gethash(cookie) })
 mljson = JSON.parse(res.body)
+Rails.logger.debug mljson

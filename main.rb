@@ -5,6 +5,8 @@ Bundler.require
 require './init/stdlib'
 # initialize database
 require './init/dbinit'
+# initialize logger
+Rails.logger = Logger.new(STDOUT)
 # load all model files
 Dir.glob('./app/models/*.rb').each do |file|
   require file
