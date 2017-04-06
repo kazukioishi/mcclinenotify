@@ -1,4 +1,4 @@
-class CookieTool
+module CookieTool
   def self.gethash(jar)
     rettext = ''
     jar.each do |cookie|
