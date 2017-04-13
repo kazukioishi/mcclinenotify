@@ -49,7 +49,7 @@ Topic.where({ send_ok: false }).order(creation_date: :asc).each do |item|
     if LINENotify.send_notify(token,
                               "#{item.deadline_text ? '(' + item.deadline_text + ')' : ''}" \
                               "#{item.subject}\n" \
-                              "#{item.last_name << item.first_name}より#{item.recipients}宛\n" \
+                              "#{item.last_name + item.first_name}より#{item.recipients}宛\n" \
                               "https://circleapp.jp/mailinglist/detail/#{item.entry_id}")
       item.send_ok = true
       item.save
